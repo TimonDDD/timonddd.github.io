@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали клиента - АО "Лютик"</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <!-- ...existing code... -->
+    </div>
+    <div class="container client-details-container">
+        <h2>Детали клиента - АО "Лютик"</h2>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Details')">Детали</button>
+            <button class="tablinks" onclick="openTab(event, 'Contracts')">Договора</button>
+        </div>
+        <div id="Details" class="tabcontent">
+            <p>Наименование: АО "Лютик"</p>
+            <p>Страна: Беларусь</p>
+            <p>Менеджер: Петр Петров</p>
+            <p>Статус: Активен</p>
+            <p>Дата договора: 15.02.2023</p>
+            <p>Сумма сделок: 800,000 руб.</p>
+            <p>Сумма договора: 400,000 руб.</p>
+            <p>Сроки оплаты: 45 дней</p>
+            <h3>Реквизиты</h3>
+            <p>ИНН: 2234567890</p>
+            <p>КПП: 1987654321</p>
+            <p>БИК: 044525226</p>
+            <p>Расчетный счет: 40702810900000000002</p>
+            <p>Корреспондентский счет: 30101810400000000226</p>
+            <button>Создать договор</button>
+            <h3>Задачи</h3>
+            <ul>
+                <li>Позвонить клиенту</li>
+                <li>Отправить коммерческое предложение</li>
+            </ul>
+            <h3>История работы</h3>
+            <ul>
+                <li>15.02.2023 - Заключен договор</li>
+                <li>01.03.2023 - Первая перевозка</li>
+            </ul>
+            <h3>Файлы</h3>
+            <ul>
+                <li><a href="#">Договор</a></li>
+                <li><a href="#">Счет</a></li>
+            </ul>
+        </div>
+        <div id="Contracts" class="tabcontent" style="display:none">
+            <h3>Договора</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Дата</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Скачать</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>15.02.2023</td>
+                        <td>400,000 руб.</td>
+                        <td>Активен</td>
+                        <td><a href="#">Скачать</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>01.03.2023</td>
+                        <td>200,000 руб.</td>
+                        <td>Активен</td>
+                        <td><a href="#">Скачать</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

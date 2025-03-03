@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="main.html">Главная</a>
+        <a href="profile.html" class="active">Профиль</a>
+        <a href="clients.html">Клиенты</a>
+        <a href="carriers.html">Перевозчики</a>
+        <a href="transportations.html">Перевозки</a>
+        <a href="users.html">Пользователи</a>
+        <a href="admin_dashboard.html">Администратор</a>
+    </div>
+    <div class="container profile-container">
+        <h2>Ваш профиль</h2>
+        <div class="profile-info">
+            <p>Имя: <span id="userName">Иван Иванов</span></p>
+            <p>Роль: <span id="userRole">Менеджер по продажам</span></p>
+        </div>
+        <button onclick="location.href='clients.html'">База клиентов</button>
+        <button onclick="location.href='carriers.html'">База перевозчиков</button>
+    </div>
+</body>
+</html>

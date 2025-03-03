@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали перевозки №2</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function updateProfit() {
+            const clientPrice = parseFloat(document.getElementById('clientPrice').value) || 120000;
+            const chinaCarrierPrice = parseFloat(document.getElementById('chinaCarrierPrice').value) || 60000;
+            const cisCarrierPrice = parseFloat(document.getElementById('cisCarrierPrice').value) || 40000;
+            const additionalExpenses = Array.from(document.querySelectorAll('.additional-expense')).reduce((sum, input) => sum + (parseFloat(input.value) || 0), 0);
+            const profit = clientPrice - (chinaCarrierPrice + cisCarrierPrice + additionalExpenses);
+            document.getElementById('profit').textContent = profit.toFixed(2);
+            document.getElementById('submitChangesButton').disabled = false;
+            document.getElementById('submitChangesButton').style.opacity = 1;
+        }
+
+        function addExpenseField() {
+            const container = document.getElementById('additionalExpensesContainer');
+            const div = document.createElement('div');
+            div.className = 'expense-item';
+
+            const select = document.createElement('select');
+            select.className = 'expense-type';
+            const option1 = document.createElement('option');
+            option1.value = 'insurance';
+            option1.textContent = 'Страхование';
+            const option2 = document.createElement('option');
+            option2.value = 'packaging';
+            option2.textContent = 'Упаковка груза';
+            select.appendChild(option1);
+            select.appendChild(option2);
+
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'additional-expense';
+            input.placeholder = 'Введите сумму';
+            input.oninput = updateProfit;
+
+            div.appendChild(select);
+            div.appendChild(input);
+            container.appendChild(div);
+            document.getElementById('submitChangesButton').disabled = false;
+            document.getElementById('submitChangesButton').style.opacity = 1;
+        }
+
+        function enableReasonField() {
+            document.getElementById('priceChangeReason').style.display = 'block';
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function openFileUpload() {
+            document.getElementById('fileUpload').click();
+        }
+
+        function displayUploadedFiles(listId) {
+            const files = document.getElementById('fileUpload').files;
+            const fileList = document.getElementById(listId);
+            fileList.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = files[i].name;
+                fileList.appendChild(li);
+            }
+        }
+    </script>
+    <style>
+        #submitChangesButton:disabled {
+            opacity: 0.5;
+        }
+        #priceChangeReason {
+            display: none;
+        }
+        .file-column {
+            width: 45%;
+            float: left;
+            margin: 2.5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="main.html">Главная</a>
+        <a href="profile.html">Профиль</a>
+        <a href="clients.html">Клиенты</a>
+        <a href="carriers.html">Перевозчики</a>
+        <a href="transportations.html" class="active">Перевозки</a>
+        <a href="users.html">Пользователи</a>
+        <a href="admin_dashboard.html">Администратор</a>
+    </div>
+    <div class="container transportation-details-container">
+        <h2>Детали перевозки №2</h2>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Details')">Детали</button>
+            <button class="tablinks" onclick="openTab(event, 'ChinaTasks')">Задания по перевозке Китай</button>
+            <button class="tablinks" onclick="openTab(event, 'CISTasks')">Задания по перевозке СНГ</button>
+            <button class="tablinks" onclick="openTab(event, 'Files')">Файлы</button>
+            <!-- New Payment tab -->
+            <button class="tablinks" onclick="openTab(event, 'Payment')">Оплата</button>
+        </div>
+        <div id="Details" class="tabcontent">
+            <p><strong>Клиент:</strong> АО "Лютик"</p>
+            <p><strong>Менеджер по клиентам:</strong> Петр Петров</p>
+            <p><strong>Перевозчик по Китаю:</strong> АО "Логистика"</p>
+            <p><strong>Менеджер по перевозкам:</strong> Алексей Алексеев</p>
+            <p><strong>Перевозчик по СНГ:</strong> АО "Экспресс"</p>
+            <p><strong>Маршрут:</strong> Минск - Алматы</p>
+            <p><strong>Погранпереходы:</strong> Переход 1, Переход 2</p>
+            <p><strong>Дата погрузки:</strong> 15.05.2023</p>
+            <p><strong>Расстаможка:</strong> Да</p>
+            <p><strong>Вид техники:</strong> Прицеп</p>
+            <p><strong>Статус:</strong> В пути</p>
+            <p><strong>Цена клиента:</strong> <input type="number" id="clientPrice" value="120000" oninput="updateProfit(); enableReasonField();"></p>
+            <p><strong>Цена перевозчика по Китаю:</strong> <input type="number" id="chinaCarrierPrice" value="60000" oninput="updateProfit(); enableReasonField();"></p>
+            <p><strong>Цена перевозчика по СНГ:</strong> <input type="number" id="cisCarrierPrice" value="40000" oninput="updateProfit(); enableReasonField();"></p>
+            <p id="priceChangeReason"><strong>Причина изменения цены:</strong> <input type="text" id="reason"></p>
+            <p><strong>Дата оплаты клиентом:</strong> 30.05.2023</p>
+            <p><strong>Дата оплаты перевозчику по СНГ:</strong> 31.05.2023</p>
+            <p><strong>Дата оплаты перевозчику по Китаю:</strong> 01.06.2023</p>
+            <p><strong>Профит:</strong> <span id="profit">20000</span></p>
+            <div id="additionalExpensesContainer">
+                <label for="additionalExpenses">Дополнительные расходы:</label>
+                <div class="expense-item">
+                    <select class="expense-type">
+                        <option value="insurance">Страхование</option>
+                        <option value="packaging">Упаковка груза</option>
+                    </select>
+                    <input type="number" class="additional-expense" placeholder="Введите сумму" oninput="updateProfit()">
+                </div>
+            </div>
+            <button type="button" onclick="addExpenseField()">Добавить ещё расходы</button>
+            <button id="submitChangesButton" type="button" disabled>Внести изменения</button>
+        </div>
+        <div id="ChinaTasks" class="tabcontent">
+            <h3>Задания по перевозке Китай</h3>
+            <p>Список заданий по перевозке в Китай.</p>
+            <ul>
+                <li>Фотографии с загрузки (с возможностью их добавить, кнопка добавить, и кнопка открыть, после открытия всплывающее окно с фотографиями) - строка для экспедитора по Китаю
+                    <button type="button" onclick="openFileUpload()">Добавить</button>
+                    <input type="file" id="chinaFileUpload" style="display:none" multiple onchange="displayUploadedFiles('chinaFileList')">
+                    <button type="button" onclick="document.getElementById('chinaFileContainer').style.display='block'">Открыть</button>
+                    <div id="chinaFileContainer" style="display:none">
+                        <ul id="chinaFileList"></ul>
+                    </div>
+                </li>
+                <li>Диспозиция до 9-30 с ориентирами прибытия на погранпереход (да\нет) – строка для менеджера по продажам
+                    <select>
+                        <option value="yes">Да</option>
+                        <option value="no">Нет</option>
+                    </select>
+                </li>
+                <li>Груз накрыт на границе или выгружен на крытом складе
+                    <select>
+                        <option value="covered">Накрыт</option>
+                        <option value="unloaded">Выгружен</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        <div id="CISTasks" class="tabcontent">
+            <h3>Задания по перевозке СНГ</h3>
+            <p>Список заданий по перевозке в СНГ.</p>
+            <ul>
+                <li>Наличие ЦМР-страхования перевозчика (да\нет) – строка для экспедитора
+                    <select>
+                        <option value="yes">Да</option>
+                        <option value="no">Нет</option>
+                    </select>
+                </li>
+                <li>Связь с водителем(да\нет) – строка для экспедитора
+                    <select>
+                        <option value="yes">Да</option>
+                        <option value="no">Нет</option>
+                    </select>
+                </li>
+                <li>Перегружен в течение 2-х дней(да\нет) – строка для менеджера по продажам
+                    <select>
+                        <option value="yes">Да</option>
+                        <option value="no">Нет</option>
+                    </select>
+                </li>
+                <li>Фотографии от перевозчика с перегрузки (с возможностью их добавить, кнопка добавить, и кнопка открыть, после открытия всплывающее окно с фотографиями) - строка для экспедитора
+                    <button type="button" onclick="openFileUpload()">Добавить</button>
+                    <input type="file" id="cisFileUpload" style="display:none" multiple onchange="displayUploadedFiles('cisFileList')">
+                    <button type="button" onclick="document.getElementById('cisFileContainer').style.display='block'">Открыть</button>
+                    <div id="cisFileContainer" style="display:none">
+                        <ul id="cisFileList"></ul>
+                    </div>
+                </li>
+                <li>Диспозиция до 9-30 с ориентирами прибытия на таможню (да\нет) – строка для менеджера по продажам
+                    <select>
+                        <option value="yes">Да</option>
+                        <option value="no">Нет</option>
+                    </select>
+                </li>
+                <li>Закрывающие документы от перевозчика в течение 10 дней – строка для офис-менеджера
+                    <input type="file" multiple>
+                </li>
+            </ul>
+        </div>
+        <div id="Files" class="tabcontent">
+            <h3>Файлы</h3>
+            <div class="file-column">
+                <h4>Файлы по Клиенту</h4>
+                <select id="clientFileTypeSelect">
+                    <option value="clientRequest">Заявка от клиента</option>
+                </select>
+                <button type="button" onclick="openFileUpload()">Добавить файл</button>
+                <input type="file" id="clientFileUpload" style="display:none" multiple onchange="displayUploadedFiles('clientFileList')">
+                <ul id="clientFileList"></ul>
+                <button type="button">Создать заявку Клиенту</button>
+                <button type="button">Счет для клиента</button>
+                <button type="button">Акт для клиента</button>
+            </div>
+            <div class="file-column">
+                <h4>Файлы по Перевозчику</h4>
+                <select id="fileTypeSelect">
+                    <option value="invoice">Счет от перевозчика</option>
+                    <option value="act">Акт от перевозчика</option>
+                    <option value="cmr">ЦМР</option>
+                    <option value="chinaInvoice">Счет от перевозчика по Китаю</option>
+                    <option value="insurance">Страховка</option>
+                </select>
+                <button type="button" onclick="openFileUpload()">Добавить файл</button>
+                <input type="file" id="carrierFileUpload" style="display:none" multiple onchange="displayUploadedFiles('carrierFileList')">
+                <ul id="carrierFileList"></ul>
+                <button type="button">Создать заявку Перевозчику по Китаю</button>
+                <button type="button">Создать заявку перевозчику по СНГ</button>
+            </div>
+        </div>
+        <div id="Payment" class="tabcontent">
+            <h3>Оплата</h3>
+            <form id="paymentForm">
+                <label for="clientPaymentDate">Оплата клиентом (дата):</label>
+                <input type="date" id="clientPaymentDateAdmin">
+                <label for="clientPaymentInfo" style="display: none;" id="clientPaymentInfoLabel">Комментарий к оплате клиента:</label>
+                <input type="text" id="clientPaymentInfo" placeholder="Введите информацию..." style="display: none;">
+                
+                <label for="cisCarrierPaymentDate">Оплата перевозчику по СНГ (дата):</label>
+                <input type="date" id="cisCarrierPaymentDateAdmin">
+                <label for="cisCarrierPaymentInfo" style="display: none;" id="cisCarrierPaymentInfoLabel">Комментарий к оплате перевозчику по СНГ:</label>
+                <input type="text" id="cisCarrierPaymentInfo" placeholder="Введите информацию..." style="display: none;">
+                
+                <label for="chinaCarrierPaymentDate">Оплата перевозчику по Китаю (дата):</label>
+                <input type="date" id="chinaCarrierPaymentDateAdmin">
+                <label for="chinaCarrierPaymentInfo" style="display: none;" id="chinaCarrierPaymentInfoLabel">Комментарий к оплате перевозчику по Китаю:</label>
+                <input type="text" id="chinaCarrierPaymentInfo" placeholder="Введите информацию..." style="display: none;">
+                
+                <button type="submit">Сохранить оплату</button>
+            </form>
+            <script>
+                function toggleComment(dateFieldId, commentFieldId, commentLabelId) {
+                    var dateVal = document.getElementById(dateFieldId).value;
+                    var commentField = document.getElementById(commentFieldId);
+                    var commentLabel = document.getElementById(commentLabelId);
+                    if(dateVal) {
+                        commentField.style.display = 'block';
+                        commentLabel.style.display = 'block';
+                    } else {
+                        commentField.style.display = 'none';
+                        commentLabel.style.display = 'none';
+                    }
+                }
+                document.getElementById('clientPaymentDateAdmin').addEventListener('change', function(){
+                    toggleComment('clientPaymentDateAdmin','clientPaymentInfo','clientPaymentInfoLabel');
+                });
+                document.getElementById('cisCarrierPaymentDateAdmin').addEventListener('change', function(){
+                    toggleComment('cisCarrierPaymentDateAdmin','cisCarrierPaymentInfo','cisCarrierPaymentInfoLabel');
+                });
+                document.getElementById('chinaCarrierPaymentDateAdmin').addEventListener('change', function(){
+                    toggleComment('chinaCarrierPaymentDateAdmin','chinaCarrierPaymentInfo','chinaCarrierPaymentInfoLabel');
+                });
+                document.getElementById('paymentForm').onsubmit = function(e) {
+                    e.preventDefault();
+                    console.log('Оплата клиентом:', document.getElementById('clientPaymentDateAdmin').value, 'Комментарий:', document.getElementById('clientPaymentInfo').value);
+                    console.log('Оплата перевозчику по СНГ:', document.getElementById('cisCarrierPaymentDateAdmin').value, 'Комментарий:', document.getElementById('cisCarrierPaymentInfo').value);
+                    console.log('Оплата перевозчику по Китаю:', document.getElementById('chinaCarrierPaymentDateAdmin').value, 'Комментарий:', document.getElementById('chinaCarrierPaymentInfo').value);
+                    alert('Информация по оплате сохранена.');
+                    // TODO: Implement backend update if needed.
+                };
+            </script>
+        </div>
+    </div>
+    <script>
+        document.getElementsByClassName('tablinks')[0].click();
+    </script>
+</body>
+</html>

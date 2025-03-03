@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали перевозчика - ООО "ТрансСервис"</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <!-- ...existing code... -->
+    </div>
+    <div class="container carrier-details-container">
+        <h2>Детали перевозчика - ООО "ТрансСервис"</h2>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Details')">Детали</button>
+            <button class="tablinks" onclick="openTab(event, 'Contracts')">Договора</button>
+        </div>
+        <div id="Details" class="tabcontent">
+            <p>Наименование: ООО "ТрансСервис"</p>
+            <p>Страна: Украина</p>
+            <p>Менеджер: Иван Иванов</p>
+            <p>Статус: Активен</p>
+            <p>Дата договора: 15.05.2023</p>
+            <p>Сумма сделок: 1,500,000 руб.</p>
+            <p>Сумма договора: 750,000 руб.</p>
+            <p>Вид техники: Контейнеровозы</p>
+            <p>Направления работы: Киев - Одесса</p>
+            <h3>Реквизиты</h3>
+            <p>ИНН: 3234567890</p>
+            <p>КПП: 2987654321</p>
+            <p>БИК: 044525227</p>
+            <p>Расчетный счет: 40702810900000000003</p>
+            <p>Корреспондентский счет: 30101810400000000227</p>
+            <button>Создать договор</button>
+            <h3>Задачи</h3>
+            <ul>
+                <li>Позвонить перевозчику</li>
+                <li>Отправить коммерческое предложение</li>
+            </ul>
+            <h3>История работы</h3>
+            <ul>
+                <li>15.05.2023 - Заключен договор</li>
+                <li>30.05.2023 - Первая перевозка</li>
+            </ul>
+            <h3>Файлы</h3>
+            <ul>
+                <li><a href="#">Договор</a></li>
+                <li><a href="#">Счет</a></li>
+            </ul>
+        </div>
+        <div id="Contracts" class="tabcontent" style="display:none">
+            <h3>Договора</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Дата</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Скачать</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>15.05.2023</td>
+                        <td>750,000 руб.</td>
+                        <td>Активен</td>
+                        <td><a href="#">Скачать</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>30.05.2023</td>
+                        <td>500,000 руб.</td>
+                        <td>Активен</td>
+                        <td><a href="#">Скачать</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить перевозку</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function calculateProfit() {
+            const clientPrice = parseFloat(document.getElementById('clientPrice').value) || 0;
+            const chinaCarrierPrice = parseFloat(document.getElementById('chinaCarrierPrice').value) || 0;
+            const cisCarrierPrice = parseFloat(document.getElementById('cisCarrierPrice').value) || 0;
+            const profit = clientPrice - (chinaCarrierPrice + cisCarrierPrice);
+            document.getElementById('profit').value = profit.toFixed(2);
+        }
+    </script>
+    <style>
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .dropdown-checkbox {
+            display: block;
+            position: relative;
+        }
+        .dropdown-checkbox-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-checkbox-content label {
+            display: block;
+            padding: 8px 16px;
+        }
+        .dropdown-checkbox:hover .dropdown-checkbox-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Главная</a>
+        <a href="profile.html">Профиль</a>
+        <a href="clients.html">Клиенты</a>
+        <a href="carriers.html">Перевозчики</a>
+        <a href="transportations.html" class="active">Перевозки</a>
+        <a href="users.html">Пользователи</a>
+        <a href="admin_dashboard.html">Администратор</a>
+    </div>
+    <div class="container add-transportation-container">
+        <h2>Добавить перевозку</h2>
+        <form id="addTransportationForm">
+            <label for="client">Клиент:</label>
+            <select id="client">
+                <option value="1">ООО "Ромашка"</option>
+                <option value="2">АО "Лютик"</option>
+                <!-- ...more options... -->
+            </select>
+            <label for="clientManager">Менеджер по клиентам:</label>
+            <select id="clientManager">
+                <option value="1">Иван Иванов</option>
+                <option value="2">Петр Петров</option>
+                <!-- ...more options... -->
+            </select>
+            <label for="transportationManager">Менеджер по перевозкам:</label>
+            <select id="transportationManager">
+                <option value="1">Сергей Сергеев</option>
+                <option value="2">Алексей Алексеев</option>
+                <!-- ...more options... -->
+            </select>
+            <label for="chinaCarrier">Перевозчик по Китаю:</label>
+            <select id="chinaCarrier">
+                <option value="1">ООО "Транспорт"</option>
+                <option value="2">АО "Логистика"</option>
+                <!-- ...more options... -->
+            </select>
+            <label for="cisCarrier">Перевозчик по СНГ:</label>
+            <select id="cisCarrier">
+                <option value="1">ООО "ТрансСервис"</option>
+                <option value="2">АО "Экспресс"</option>
+                <!-- ...more options... -->
+            </select>
+            <label for="route">Маршрут:</label>
+            <input type="text" id="route" placeholder="Москва - Санкт-Петербург">
+            <label for="borderCrossings">Погранпереходы:</label>
+            <div id="borderCrossings" class="dropdown-checkbox">
+                <button type="button">Выберите погранпереходы</button>
+                <div class="dropdown-checkbox-content">
+                    <label><input type="checkbox" value="1"> Переход 1</label>
+                    <label><input type="checkbox" value="2"> Переход 2</label>
+                    <label><input type="checkbox" value="3"> Переход 3</label>
+                    <!-- ...more options... -->
+                </div>
+            </div>
+            <label for="loadingDate">Дата погрузки:</label>
+            <input type="date" id="loadingDate">
+            <label for="customsClearance">Расстаможка:</label>
+            <input type="checkbox" id="customsClearance">
+            <div style="margin-top: 10px;">
+                <label for="equipmentType">Вид техники:</label>
+                <select id="equipmentType">
+                    <option value="truck">Грузовик</option>
+                    <option value="trailer">Прицеп</option>
+                    <option value="container">Контейнер</option>
+                    <!-- ...more options... -->
+                </select>
+            </div>
+            <div style="margin-top: 10px;">
+                <label for="status">Статус:</label>
+                <select id="status">
+                    <option value="planned">Планируется</option>
+                    <option value="loaded">Загружен</option>
+                    <option value="enRouteToBorder">В пути на границу</option>
+                    <option value="transshipment">Перегрузка</option>
+                    <option value="enRouteToCustoms">В пути на таможню</option>
+                    <option value="enRouteToUnloading">В пути на выгрузку</option>
+                    <option value="completed">Завершена</option>
+                </select>
+            </div>
+            <div style="margin-top: 10px;">
+                <label for="clientPaymentDate">Дата оплаты клиентом:</label>
+                <input type="date" id="clientPaymentDate">
+            </div>
+            <label for="cisCarrierPaymentDate">Дата оплаты перевозчику по СНГ:</label>
+            <input type="date" id="cisCarrierPaymentDate">
+            <label for="chinaCarrierPaymentDate">Дата оплаты перевозчику по Китаю:</label>
+            <input type="date" id="chinaCarrierPaymentDate">
+            <label for="clientPrice">Цена клиента:</label>
+            <input type="number" id="clientPrice" placeholder="Введите сумму" oninput="calculateProfit()">
+            <label for="chinaCarrierPrice">Цена перевозчика по Китаю:</label>
+            <input type="number" id="chinaCarrierPrice" placeholder="Введите сумму" oninput="calculateProfit()">
+            <label for="cisCarrierPrice">Цена перевозчика по СНГ:</label>
+            <input type="number" id="cisCarrierPrice" placeholder="Введите сумму" oninput="calculateProfit()">
+            <div style="margin-top: 10px;">
+                <label for="profit">Профит:</label>
+                <input type="number" id="profit" readonly>
+            </div>
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Для администратора</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styling for dashboard */
+        .filter-form {
+            margin-bottom: 20px;
+        }
+        .filter-form label {
+            margin-right: 10px;
+        }
+        .filter-form select, .filter-form input {
+            margin-right: 20px;
+            padding: 5px;
+        }
+        table.admin-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table.admin-table th, table.admin-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table.admin-table th {
+            background-color: #f5f8fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="main.html">Главная</a>
+        <a href="profile.html">Профиль</a>
+        <a href="clients.html">Клиенты</a>
+        <a href="carriers.html">Перевозчики</a>
+        <a href="transportations.html">Перевозки</a>
+        <a href="users.html">Пользователи</a>
+        <a href="admin_dashboard.html" class="active">Администратора</a>
+    </div>
+    <div class="container">
+        <h2>Выгрузка перевозок по пользователю за месяц</h2>
+        <!-- Filter Form -->
+        <div class="filter-form">
+            <form id="adminFilterForm">
+                <label for="adminUser">Пользователь:</label>
+                <select id="adminUser">
+                    <option value="ivan">Иван Иванов</option>
+                    <option value="petr">Петр Петров</option>
+                    <option value="sergey">Сергей Сергеев</option>
+                    <!-- ... additional users ... -->
+                </select>
+                <label for="adminMonth">Месяц:</label>
+                <select id="adminMonth">
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+                <button type="submit">Показать</button>
+            </form>
+        </div>
+        <!-- Result Table -->
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>№ перевозки</th>
+                    <th>Клиент</th>
+                    <th>Статус</th>
+                    <th>Дата выгрузки</th>
+                </tr>
+            </thead>
+            <tbody id="adminResults">
+                <!-- Sample Data (to be replaced by dynamic content) -->
+                <tr>
+                    <td>3</td>
+                    <td>ООО "Василек"</td>
+                    <td>Завершено</td>
+                    <td>15.02.2023</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>АО "Роза"</td>
+                    <td>Завершено</td>
+                    <td>20.02.2023</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('adminFilterForm').onsubmit = function(e) {
+            e.preventDefault();
+            // Here you would typically fetch filtered data via AJAX, for now we'll log the selections.
+            const user = document.getElementById('adminUser').value;
+            const month = document.getElementById('adminMonth').value;
+            console.log('Filter data: Пользователь=', user, 'Месяц=', month);
+            // TODO: Update table (#adminResults) with filtered data.
+        };
+    </script>
+</body>
+</html>
